@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Base Layer ─────────────────────────────────────────────────────────── */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply font-sans text-slate-800 bg-white dark:bg-slate-950 dark:text-slate-200 transition-colors duration-300;
+  }
+
+  ::selection {
+    @apply bg-petrol-200 dark:bg-petrol-900 text-petrol-950 dark:text-petrol-100;
+  }
+
+  /* Focus-visible outline for accessibility */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-petrol-500 dark:outline-petrol-400;
+  }
+}
+
+/* ── Components Layer ───────────────────────────────────────────────────── */
+
+@layer components {
+  .section-padding {
+    @apply py-20 md:py-28 lg:py-32;
+  }
+
+  .container-custom {
+    @apply max-w-7xl mx-auto px-5 sm:px-6 lg:px-8;
+  }
+
+  .glass-card {
+    @apply bg-white/60 dark:bg-slate-900/60 backdrop-blur-2xl
+           border border-slate-200/60 dark:border-slate-700/40
+           rounded-2xl shadow-sm shadow-slate-200/20 dark:shadow-slate-900/30;
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent
+           bg-gradient-to-r from-petrol-800 via-petrol-600 to-petrol-500
+           dark:from-petrol-300 dark:via-petrol-400 dark:to-petrol-500;
+  }
+
+  .section-label {
+    @apply inline-flex items-center gap-2 text-xs font-accent font-semibold uppercase tracking-[0.2em]
+           text-petrol-700 dark:text-petrol-400 mb-4;
+  }
+
+  .section-heading {
+    @apply font-display font-bold text-3xl sm:text-4xl lg:text-5xl
+           text-slate-900 dark:text-white leading-tight tracking-tight;
+  }
+
+  .section-subheading {
+    @apply text-lg sm:text-xl text-slate-500 dark:text-slate-400 leading-relaxed max-w-2xl;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2
+           px-7 py-3.5 rounded-xl font-medium text-sm
+           bg-petrol-700 hover:bg-petrol-800 dark:bg-petrol-600 dark:hover:bg-petrol-500
+           text-white shadow-lg shadow-petrol-700/20 dark:shadow-petrol-500/20
+           transition-all duration-300 ease-out
+           hover:shadow-xl hover:shadow-petrol-700/30 dark:hover:shadow-petrol-500/30
+           hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2
+           px-7 py-3.5 rounded-xl font-medium text-sm
+           bg-transparent border border-slate-300 dark:border-slate-600
+           text-slate-700 dark:text-slate-300
+           hover:border-petrol-500 hover:text-petrol-700
+           dark:hover:border-petrol-400 dark:hover:text-petrol-300
+           transition-all duration-300 ease-out hover:-translate-y-0.5 active:translate-y-0;
+  }
+}
+
+/* ── Utilities Layer: Scroll Animations ─────────────────────────────────── */
+
+@layer utilities {
+  [data-animate] {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  [data-animate].is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  [data-animate="fade"] {
+    transform: none;
+  }
+
+  [data-animate="slide-left"] {
+    transform: translateX(-28px);
+  }
+  [data-animate="slide-left"].is-visible {
+    transform: translateX(0);
+  }
+
+  [data-animate="slide-right"] {
+    transform: translateX(28px);
+  }
+  [data-animate="slide-right"].is-visible {
+    transform: translateX(0);
+  }
+
+  [data-animate="scale"] {
+    transform: scale(0.96);
+  }
+  [data-animate="scale"].is-visible {
+    transform: scale(1);
+  }
+}
+
+/* ── Custom Scrollbar ───────────────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 dark:bg-slate-700 rounded-full;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-slate-400 dark:bg-slate-600;
+}

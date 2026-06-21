@@ -1,0 +1,72 @@
+---
+import { timeline } from '../data/content';
+---
+
+<section id="experiencia" class="section-padding bg-slate-50/50 dark:bg-slate-900/30" aria-labelledby="timeline-heading">
+  <div class="container-custom">
+    <!-- Section header -->
+    <div data-animate class="text-center mb-14 lg:mb-16">
+      <span class="section-label justify-center">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        Trayectoria
+      </span>
+      <h2 id="timeline-heading" class="section-heading">Experiencia profesional</h2>
+      <p class="section-subheading mx-auto mt-4">
+        Más de 15 años construyendo reputación, liderando equipos y transformando la comunicación en un motor de crecimiento.
+      </p>
+    </div>
+
+    <!-- Timeline -->
+    <div class="max-w-3xl mx-auto relative">
+      <!-- Vertical line -->
+      <div class="absolute left-6 md:left-8 top-0 bottom-0 w-px bg-gradient-to-b from-petrol-300 via-petrol-200 to-transparent dark:from-petrol-600 dark:via-petrol-800 dark:to-transparent" aria-hidden="true"></div>
+
+      <div class="space-y-10">
+        {timeline.map((entry, i) => (
+          <article
+            data-animate
+            style={`transition-delay: ${i * 120}ms;`}
+            class="relative pl-16 md:pl-20"
+          >
+            <!-- Dot on timeline -->
+            <div class="absolute left-[18px] md:left-[26px] top-1.5 w-4 h-4 rounded-full border-[3px]
+                        border-petrol-500 dark:border-petrol-400 bg-white dark:bg-slate-950
+                        ring-4 ring-white dark:ring-slate-950" aria-hidden="true"></div>
+
+            <!-- Period badge -->
+            <span class="inline-block text-xs font-accent font-semibold uppercase tracking-wider
+                         text-petrol-600 dark:text-petrol-400 mb-2">
+              {entry.period}
+            </span>
+
+            <!-- Card -->
+            <div class="glass-card p-6 hover:shadow-lg hover:shadow-petrol-100/20 dark:hover:shadow-petrol-900/20 transition-all duration-300">
+              <h3 class="font-display font-bold text-lg text-slate-900 dark:text-white mb-1">
+                {entry.role}
+              </h3>
+              <p class="text-sm font-medium text-petrol-600 dark:text-petrol-400 mb-3">
+                {entry.company}
+              </p>
+              <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+                {entry.description}
+              </p>
+              <!-- Achievements -->
+              <ul class="space-y-1.5">
+                {entry.achievements.map((achievement) => (
+                  <li class="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-300">
+                    <svg class="w-4 h-4 mt-0.5 text-petrol-500 dark:text-petrol-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                    </svg>
+                    {achievement}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

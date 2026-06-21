@@ -1,0 +1,77 @@
+---
+import { about } from '../data/content';
+---
+
+<section id="sobre-mi" class="section-padding bg-slate-50/50 dark:bg-slate-900/30" aria-labelledby="about-heading">
+  <div class="container-custom">
+    <div class="max-w-6xl mx-auto">
+      <!-- Section header -->
+      <div data-animate class="mb-14 lg:mb-16">
+        <span class="section-label">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0" />
+          </svg>
+          Sobre Mí
+        </span>
+        <h2 id="about-heading" class="section-heading">{about.headline}</h2>
+      </div>
+
+      <div class="grid lg:grid-cols-5 gap-12 lg:gap-16 items-start">
+        <!-- Left: Photo area + quick stats -->
+        <div class="lg:col-span-2 space-y-8" data-animate="slide-left">
+          <!-- Stylised photo placeholder -->
+          <div class="relative">
+            <div class="aspect-[4/5] rounded-3xl bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-900 dark:to-slate-800
+                        border border-slate-200 dark:border-slate-800 flex items-center justify-center overflow-hidden">
+              <img 
+                src="/assets/images/angelica-rojas.png" 
+                alt="Angélica Rojas" 
+                class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                loading="lazy"
+              />
+            </div>
+            <!-- Decorative accent card -->
+            <div class="absolute -bottom-4 -right-4 glass-card px-5 py-3 flex items-center gap-3">
+              <span class="flex h-8 w-8 items-center justify-center rounded-full bg-petrol-100 dark:bg-petrol-900/50">
+                <svg class="w-4 h-4 text-petrol-700 dark:text-petrol-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </span>
+              <div>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Disponible para</p>
+                <p class="text-sm font-semibold text-slate-900 dark:text-white">Consultoría & Proyectos</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Highlight metrics -->
+          <div class="grid grid-cols-3 gap-3">
+            {about.highlights.map((h) => (
+              <div class="glass-card p-4 text-center">
+                <p class="font-display font-bold text-xl gradient-text">{h.value}</p>
+                <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1 leading-tight">{h.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Right: Bio text -->
+        <div class="lg:col-span-3 space-y-6" data-animate="slide-right">
+          {about.paragraphs.map((paragraph) => (
+            <p class="text-base sm:text-lg leading-relaxed text-slate-600 dark:text-slate-300">
+              {paragraph}
+            </p>
+          ))}
+
+          <!-- Signature detail -->
+          <div class="pt-4 flex items-center gap-4">
+            <div class="h-px flex-1 bg-gradient-to-r from-petrol-300/50 to-transparent dark:from-petrol-700/50"></div>
+            <span class="font-accent font-semibold text-sm text-petrol-700 dark:text-petrol-400 italic">
+              — Angélica Rojas
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
