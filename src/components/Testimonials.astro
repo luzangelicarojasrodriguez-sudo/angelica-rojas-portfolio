@@ -2,49 +2,56 @@
 import { testimonials } from '../data/content';
 ---
 
-<section id="testimonios" class="section-padding bg-slate-50/50 dark:bg-slate-900/30" aria-labelledby="testimonials-heading">
+<section id="testimonios" class="section-padding relative overflow-hidden" aria-labelledby="testimonials-heading">
+  <div class="absolute inset-0 -z-10"
+       style="background: radial-gradient(ellipse 80% 50% at 50% 100%, rgba(217,119,6,0.04), transparent);" aria-hidden="true"></div>
+
   <div class="container-custom">
-    <!-- Section header -->
+    <!-- Header -->
     <div data-animate class="text-center mb-14 lg:mb-16">
-      <span class="section-label justify-center">
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
-        </svg>
-        Testimonios
-      </span>
-      <h2 id="testimonials-heading" class="section-heading">Lo que dicen quienes han trabajado conmigo</h2>
+      <span class="section-label justify-center">Testimonios</span>
+      <h2 id="testimonials-heading" class="section-heading max-w-2xl mx-auto">
+        Lo que dicen quienes han trabajado conmigo
+      </h2>
     </div>
 
     <!-- Testimonials grid -->
-    <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+    <div class="grid md:grid-cols-2 gap-5 max-w-5xl mx-auto">
       {testimonials.map((t, i) => (
         <article
           data-animate="scale"
-          style={`transition-delay: ${i * 100}ms;`}
-          class="glass-card p-7 lg:p-8 group hover:shadow-xl hover:shadow-petrol-100/20
-                 dark:hover:shadow-petrol-900/20 hover:-translate-y-1 transition-all duration-300"
+          style={`transition-delay: ${i * 80}ms;`}
+          class="glass-card glass-card-hover p-8 lg:p-9 relative overflow-hidden group"
         >
-          <!-- Quote mark -->
-          <svg class="w-8 h-8 text-petrol-200 dark:text-petrol-800 mb-4 group-hover:text-petrol-300 dark:group-hover:text-petrol-700 transition-colors duration-300" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
-            <path d="M10 8c-3.3 0-6 2.7-6 6v10h10V14H8c0-1.1.9-2 2-2V8zm14 0c-3.3 0-6 2.7-6 6v10h10V14h-6c0-1.1.9-2 2-2V8z" />
-          </svg>
+          <!-- Decorative quote mark (large, background) -->
+          <div class="absolute -top-2 -left-1 font-display font-bold text-[8rem] leading-none
+                       text-gold-600 opacity-[0.07] select-none pointer-events-none"
+               aria-hidden="true">"</div>
+
+          <!-- Quote icon -->
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-6 flex-shrink-0"
+               style="background: rgba(217,119,6,0.10); border: 1px solid rgba(217,119,6,0.20);">
+            <svg class="w-5 h-5 text-gold-500" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z"/>
+            </svg>
+          </div>
 
           <!-- Quote text -->
-          <blockquote class="text-base leading-relaxed text-slate-600 dark:text-slate-300 mb-6">
+          <blockquote class="text-base sm:text-lg leading-relaxed text-onyx-300 mb-8 relative z-10 font-light italic">
             "{t.quote}"
           </blockquote>
 
           <!-- Author -->
-          <div class="flex items-center gap-3 pt-4 border-t border-slate-200/60 dark:border-slate-700/40">
-            <!-- Avatar circle with initials -->
-            <div class="w-10 h-10 rounded-full bg-petrol-100 dark:bg-petrol-900/50 flex items-center justify-center flex-shrink-0">
-              <span class="font-display font-bold text-sm text-petrol-700 dark:text-petrol-400">
-                {t.name.split(' ').map((n: string) => n[0]).join('')}
-              </span>
+          <div class="flex items-center gap-4 pt-6 relative z-10"
+               style="border-top: 1px solid rgba(255,255,255,0.07);">
+            <!-- Avatar with initials -->
+            <div class="w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0 font-display font-bold text-sm text-gold-500"
+                 style="background: rgba(217,119,6,0.12); border: 1px solid rgba(217,119,6,0.25);">
+              {t.name.split(' ').map((n: string) => n[0]).join('')}
             </div>
             <div>
-              <p class="font-semibold text-sm text-slate-900 dark:text-white">{t.name}</p>
-              <p class="text-xs text-slate-500 dark:text-slate-400">{t.role} · {t.company}</p>
+              <p class="font-accent font-semibold text-sm text-onyx-100">{t.name}</p>
+              <p class="text-xs text-onyx-500 mt-0.5">{t.role} · {t.company}</p>
             </div>
           </div>
         </article>

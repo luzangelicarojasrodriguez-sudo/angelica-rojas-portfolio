@@ -13,112 +13,188 @@
   }
 
   body {
-    @apply font-sans text-slate-800 bg-white dark:bg-slate-950 dark:text-slate-200 transition-colors duration-300;
+    @apply font-sans text-onyx-200 bg-onyx-950 transition-colors duration-300;
   }
 
   ::selection {
-    @apply bg-petrol-200 dark:bg-petrol-900 text-petrol-950 dark:text-petrol-100;
+    background-color: rgba(217,119,6,0.25);
+    color: #FCD34D;
   }
 
-  /* Focus-visible outline for accessibility */
   :focus-visible {
-    @apply outline-2 outline-offset-2 outline-petrol-500 dark:outline-petrol-400;
+    outline: 2px solid #D97706;
+    outline-offset: 3px;
+    border-radius: 4px;
   }
 }
 
 /* ── Components Layer ───────────────────────────────────────────────────── */
 
 @layer components {
+
+  /* Layout */
   .section-padding {
     @apply py-20 md:py-28 lg:py-32;
   }
-
   .container-custom {
     @apply max-w-7xl mx-auto px-5 sm:px-6 lg:px-8;
   }
 
+  /* Glass card — dark luxury variant */
   .glass-card {
-    @apply bg-white/60 dark:bg-slate-900/60 backdrop-blur-2xl
-           border border-slate-200/60 dark:border-slate-700/40
-           rounded-2xl shadow-sm shadow-slate-200/20 dark:shadow-slate-900/30;
+    background: rgba(28, 25, 23, 0.70);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.05) inset,
+                0 8px 32px rgba(0,0,0,0.40);
+  }
+  .glass-card-hover {
+    transition: transform 200ms cubic-bezier(0.23,1,0.32,1),
+                box-shadow 200ms cubic-bezier(0.23,1,0.32,1),
+                border-color 200ms ease;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .glass-card-hover:hover {
+      transform: translateY(-4px);
+      border-color: rgba(217,119,6,0.30);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.07) inset,
+                  0 16px 48px rgba(0,0,0,0.50),
+                  0 0 0 1px rgba(217,119,6,0.15),
+                  0 4px 24px rgba(217,119,6,0.12);
+    }
   }
 
+  /* Gold gradient text */
   .gradient-text {
-    @apply bg-clip-text text-transparent
-           bg-gradient-to-r from-petrol-800 via-petrol-600 to-petrol-500
-           dark:from-petrol-300 dark:via-petrol-400 dark:to-petrol-500;
+    background: linear-gradient(135deg, #F59E0B 0%, #D97706 50%, #FBBF24 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
+  /* Section labels */
   .section-label {
-    @apply inline-flex items-center gap-2 text-xs font-accent font-semibold uppercase tracking-[0.2em]
-           text-petrol-700 dark:text-petrol-400 mb-4;
+    @apply inline-flex items-center gap-2
+           text-xs font-accent font-semibold uppercase tracking-[0.2em]
+           text-gold-500 mb-4;
+  }
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 1px;
+    background: #D97706;
   }
 
+  /* Section typography */
   .section-heading {
-    @apply font-display font-bold text-3xl sm:text-4xl lg:text-5xl
-           text-slate-900 dark:text-white leading-tight tracking-tight;
+    @apply font-display font-bold
+           text-3xl sm:text-4xl lg:text-5xl
+           text-onyx-50 leading-tight;
+    letter-spacing: -0.01em;
   }
-
   .section-subheading {
-    @apply text-lg sm:text-xl text-slate-500 dark:text-slate-400 leading-relaxed max-w-2xl;
+    @apply text-lg sm:text-xl text-onyx-400 leading-relaxed max-w-2xl;
   }
 
+  /* Buttons */
   .btn-primary {
     @apply inline-flex items-center justify-center gap-2
-           px-7 py-3.5 rounded-xl font-medium text-sm
-           bg-petrol-700 hover:bg-petrol-800 dark:bg-petrol-600 dark:hover:bg-petrol-500
-           text-white shadow-lg shadow-petrol-700/20 dark:shadow-petrol-500/20
-           transition-all duration-300 ease-out
-           hover:shadow-xl hover:shadow-petrol-700/30 dark:hover:shadow-petrol-500/30
-           hover:-translate-y-0.5 active:translate-y-0;
+           px-7 py-3.5 rounded-xl font-accent font-semibold text-sm
+           bg-gold-600 hover:bg-gold-500 text-onyx-950
+           transition-all duration-200 ease-out
+           cursor-pointer;
+    box-shadow: 0 4px 24px rgba(217,119,6,0.30),
+                0 1px 0 rgba(255,255,255,0.15) inset;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .btn-primary:hover {
+      box-shadow: 0 8px 32px rgba(217,119,6,0.40),
+                  0 1px 0 rgba(255,255,255,0.15) inset;
+      transform: translateY(-1px);
+    }
+  }
+  .btn-primary:active {
+    transform: scale(0.97);
+    transition-duration: 100ms;
   }
 
   .btn-secondary {
     @apply inline-flex items-center justify-center gap-2
-           px-7 py-3.5 rounded-xl font-medium text-sm
-           bg-transparent border border-slate-300 dark:border-slate-600
-           text-slate-700 dark:text-slate-300
-           hover:border-petrol-500 hover:text-petrol-700
-           dark:hover:border-petrol-400 dark:hover:text-petrol-300
-           transition-all duration-300 ease-out hover:-translate-y-0.5 active:translate-y-0;
+           px-7 py-3.5 rounded-xl font-accent font-semibold text-sm
+           bg-transparent text-onyx-100
+           transition-all duration-200 ease-out
+           cursor-pointer;
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .btn-secondary:hover {
+      border-color: rgba(217,119,6,0.50);
+      color: #F59E0B;
+      transform: translateY(-1px);
+    }
+  }
+  .btn-secondary:active {
+    transform: scale(0.97);
+    transition-duration: 100ms;
+  }
+
+  /* Gold pill badge */
+  .badge-gold {
+    @apply inline-flex items-center gap-1.5
+           px-3 py-1 rounded-full
+           text-[11px] font-accent font-semibold uppercase tracking-[0.15em]
+           text-gold-400;
+    background: rgba(217,119,6,0.10);
+    border: 1px solid rgba(217,119,6,0.25);
+  }
+
+  /* Thin gold divider */
+  .divider-gold {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(217,119,6,0.40), transparent);
   }
 }
 
-/* ── Utilities Layer: Scroll Animations ─────────────────────────────────── */
+/* ── Scroll Animations ──────────────────────────────────────────────────── */
 
 @layer utilities {
   [data-animate] {
     opacity: 0;
-    transform: translateY(28px);
-    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(28px) scale(0.98);
+    transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
   }
-
   [data-animate].is-visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 
   [data-animate="fade"] {
     transform: none;
   }
+  [data-animate="fade"].is-visible {
+    opacity: 1;
+  }
 
   [data-animate="slide-left"] {
-    transform: translateX(-28px);
+    transform: translateX(-32px) scale(0.98);
   }
   [data-animate="slide-left"].is-visible {
-    transform: translateX(0);
+    transform: translateX(0) scale(1);
   }
 
   [data-animate="slide-right"] {
-    transform: translateX(28px);
+    transform: translateX(32px) scale(0.98);
   }
   [data-animate="slide-right"].is-visible {
-    transform: translateX(0);
+    transform: translateX(0) scale(1);
   }
 
   [data-animate="scale"] {
-    transform: scale(0.96);
+    transform: scale(0.94);
   }
   [data-animate="scale"].is-visible {
     transform: scale(1);
@@ -128,14 +204,27 @@
 /* ── Custom Scrollbar ───────────────────────────────────────────────────── */
 
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
-  @apply bg-transparent;
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  @apply bg-slate-300 dark:bg-slate-700 rounded-full;
+  background: rgba(217,119,6,0.25);
+  border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-slate-400 dark:bg-slate-600;
+  background: rgba(217,119,6,0.45);
+}
+
+/* ── Noise texture overlay ──────────────────────────────────────────────── */
+
+.noise-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.025;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
 }

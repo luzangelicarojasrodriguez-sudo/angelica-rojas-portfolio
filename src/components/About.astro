@@ -2,54 +2,58 @@
 import { about } from '../data/content';
 ---
 
-<section id="sobre-mi" class="section-padding bg-slate-50/50 dark:bg-slate-900/30" aria-labelledby="about-heading">
+<section id="sobre-mi" class="section-padding relative overflow-hidden" aria-labelledby="about-heading">
+  <!-- Subtle bg texture -->
+  <div class="absolute inset-0 -z-10 opacity-[0.015]"
+       style="background-image: radial-gradient(circle, rgba(217,119,6,0.5) 1px, transparent 1px); background-size: 32px 32px;" aria-hidden="true"></div>
+
   <div class="container-custom">
     <div class="max-w-6xl mx-auto">
+
       <!-- Section header -->
       <div data-animate class="mb-14 lg:mb-16">
-        <span class="section-label">
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0" />
-          </svg>
-          Sobre Mí
-        </span>
-        <h2 id="about-heading" class="section-heading">{about.headline}</h2>
+        <span class="section-label">Sobre Mí</span>
+        <h2 id="about-heading" class="section-heading max-w-3xl">{about.headline}</h2>
       </div>
 
       <div class="grid lg:grid-cols-5 gap-12 lg:gap-16 items-start">
-        <!-- Left: Photo area + quick stats -->
-        <div class="lg:col-span-2 space-y-8" data-animate="slide-left">
-          <!-- Stylised photo placeholder -->
+
+        <!-- Left: Photo + stats -->
+        <div class="lg:col-span-2 space-y-6" data-animate="slide-left">
+          <!-- Photo area -->
           <div class="relative">
-            <div class="aspect-[4/5] rounded-3xl bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-900 dark:to-slate-800
-                        border border-slate-200 dark:border-slate-800 flex items-center justify-center overflow-hidden">
-              <img 
-                src="/assets/images/angelica-rojas.png" 
-                alt="Angélica Rojas" 
-                class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+            <div class="aspect-[4/5] rounded-2xl overflow-hidden"
+                 style="border: 1px solid rgba(255,255,255,0.08); background: linear-gradient(135deg, #1C1917, #292524);">
+              <img
+                src="/assets/images/angelica-rojas.png"
+                alt="Angélica Rojas — Estratega de Comunicación Corporativa"
+                class="w-full h-full object-cover transition-transform duration-500"
                 loading="lazy"
+                width="400" height="500"
               />
             </div>
-            <!-- Decorative accent card -->
-            <div class="absolute -bottom-4 -right-4 glass-card px-5 py-3 flex items-center gap-3">
-              <span class="flex h-8 w-8 items-center justify-center rounded-full bg-petrol-100 dark:bg-petrol-900/50">
-                <svg class="w-4 h-4 text-petrol-700 dark:text-petrol-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+
+            <!-- Floating badge -->
+            <div class="absolute -bottom-4 -right-4 glass-card px-5 py-3.5 flex items-center gap-3">
+              <span class="flex h-9 w-9 items-center justify-center rounded-full flex-shrink-0"
+                    style="background: rgba(217,119,6,0.15); border: 1px solid rgba(217,119,6,0.30);">
+                <svg class="w-4.5 h-4.5 text-gold-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </span>
               <div>
-                <p class="text-xs text-slate-500 dark:text-slate-400">Disponible para</p>
-                <p class="text-sm font-semibold text-slate-900 dark:text-white">Consultoría & Proyectos</p>
+                <p class="text-[11px] text-onyx-500 font-accent uppercase tracking-wider">Disponible para</p>
+                <p class="text-sm font-accent font-semibold text-onyx-100">Consultoría &amp; Proyectos</p>
               </div>
             </div>
           </div>
 
           <!-- Highlight metrics -->
-          <div class="grid grid-cols-3 gap-3">
+          <div class="grid grid-cols-3 gap-3 pt-2">
             {about.highlights.map((h) => (
-              <div class="glass-card p-4 text-center">
-                <p class="font-display font-bold text-xl gradient-text">{h.value}</p>
-                <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1 leading-tight">{h.label}</p>
+              <div class="glass-card p-4 text-center glass-card-hover">
+                <p class="font-display font-bold text-2xl gradient-text mb-1">{h.value}</p>
+                <p class="text-[11px] text-onyx-500 font-accent font-medium leading-tight uppercase tracking-wide">{h.label}</p>
               </div>
             ))}
           </div>
@@ -57,20 +61,38 @@ import { about } from '../data/content';
 
         <!-- Right: Bio text -->
         <div class="lg:col-span-3 space-y-6" data-animate="slide-right">
-          {about.paragraphs.map((paragraph) => (
-            <p class="text-base sm:text-lg leading-relaxed text-slate-600 dark:text-slate-300">
+          {about.paragraphs.map((paragraph, i) => (
+            <p class={`leading-relaxed text-onyx-300 ${i === 0 ? 'text-lg sm:text-xl' : 'text-base sm:text-lg'}`}>
               {paragraph}
             </p>
           ))}
 
-          <!-- Signature detail -->
-          <div class="pt-4 flex items-center gap-4">
-            <div class="h-px flex-1 bg-gradient-to-r from-petrol-300/50 to-transparent dark:from-petrol-700/50"></div>
-            <span class="font-accent font-semibold text-sm text-petrol-700 dark:text-petrol-400 italic">
+          <!-- Signature -->
+          <div class="pt-6 flex items-center gap-4">
+            <div class="divider-gold flex-1"></div>
+            <span class="font-display italic text-lg text-gold-500 font-semibold whitespace-nowrap">
               — Angélica Rojas
             </span>
           </div>
+
+          <!-- Key competencies row -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
+            {[
+              'Comunicación Estratégica',
+              'Gestión de Reputación',
+              'Branding Corporativo',
+              'Marketing Digital',
+              'Gestión de Crisis',
+              'Liderazgo de Equipos',
+            ].map((skill) => (
+              <div class="flex items-center gap-2 text-sm text-onyx-400 font-accent">
+                <span class="w-1 h-1 rounded-full bg-gold-500 flex-shrink-0"></span>
+                {skill}
+              </div>
+            ))}
+          </div>
         </div>
+
       </div>
     </div>
   </div>

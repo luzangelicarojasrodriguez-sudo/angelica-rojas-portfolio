@@ -3,42 +3,62 @@ import { cta } from '../data/content';
 ---
 
 <section class="py-20 md:py-28 relative overflow-hidden" aria-labelledby="cta-heading">
-  <!-- Gradient background -->
-  <div class="absolute inset-0 bg-gradient-to-br from-petrol-800 via-petrol-700 to-petrol-900 dark:from-petrol-950 dark:via-petrol-900 dark:to-slate-950" aria-hidden="true"></div>
+  <!-- Dark gold gradient bg -->
+  <div class="absolute inset-0 -z-10" aria-hidden="true"
+       style="background: linear-gradient(135deg, #1C1008 0%, #0C0A09 40%, #1A1000 100%);"></div>
 
-  <!-- Decorative elements -->
-  <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
-    <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-petrol-600/20 blur-3xl"></div>
-    <div class="absolute -bottom-24 -left-24 w-80 h-80 rounded-full bg-petrol-500/15 blur-3xl"></div>
-    <div class="absolute inset-0 opacity-[0.04]" style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 40px 40px;"></div>
+  <!-- Gold ambient blobs -->
+  <div class="absolute inset-0 overflow-hidden -z-10" aria-hidden="true">
+    <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full opacity-20 blur-[80px] animate-pulse-soft"
+         style="background: radial-gradient(circle, #F59E0B, #D97706, transparent);"></div>
+    <div class="absolute -bottom-24 -left-24 w-80 h-80 rounded-full opacity-15 blur-[70px] animate-pulse-soft"
+         style="background: radial-gradient(circle, #D97706, transparent); animation-delay: 1.5s;"></div>
+    <div class="absolute inset-0 opacity-[0.03]"
+         style="background-image: radial-gradient(circle, rgba(217,119,6,0.6) 1px, transparent 1px); background-size: 40px 40px;"></div>
   </div>
+
+  <!-- Top/bottom gold lines -->
+  <div class="absolute top-0 left-0 right-0 h-px divider-gold" aria-hidden="true"></div>
+  <div class="absolute bottom-0 left-0 right-0 h-px divider-gold" aria-hidden="true"></div>
 
   <div class="container-custom relative z-10">
     <div class="max-w-3xl mx-auto text-center">
+
+      <!-- Small badge -->
+      <div data-animate class="mb-6">
+        <span class="badge-gold">¿Listo para empezar?</span>
+      </div>
+
       <h2
         id="cta-heading"
         data-animate
-        class="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl text-white leading-tight tracking-tight mb-6"
+        class="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-onyx-50 leading-tight tracking-tight mb-6"
+        style="transition-delay: 80ms;"
       >
         {cta.headline}
       </h2>
 
       <p
         data-animate
-        class="text-lg text-petrol-200/80 leading-relaxed mb-10"
-        style="transition-delay: 100ms;"
+        class="text-lg text-onyx-400 leading-relaxed mb-10"
+        style="transition-delay: 160ms;"
       >
         {cta.description}
       </p>
 
-      <div data-animate style="transition-delay: 200ms;">
+      <div data-animate style="transition-delay: 240ms;">
         <a
           href={cta.button.href}
           class="inline-flex items-center justify-center gap-2
-                 px-8 py-4 rounded-xl font-semibold text-base
-                 bg-white text-petrol-800 hover:bg-petrol-50
-                 shadow-xl shadow-black/20
-                 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-2xl active:translate-y-0"
+                 px-10 py-4 rounded-xl font-accent font-bold text-base
+                 text-onyx-950 cursor-pointer"
+          style="background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+                 box-shadow: 0 8px 40px rgba(217,119,6,0.35), 0 1px 0 rgba(255,255,255,0.15) inset;
+                 transition: transform 200ms cubic-bezier(0.23,1,0.32,1), box-shadow 200ms;"
+          onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 48px rgba(217,119,6,0.45), 0 1px 0 rgba(255,255,255,0.15) inset';"
+          onmouseout="this.style.transform=''; this.style.boxShadow='0 8px 40px rgba(217,119,6,0.35), 0 1px 0 rgba(255,255,255,0.15) inset';"
+          onmousedown="this.style.transform='scale(0.97)';"
+          onmouseup="this.style.transform='translateY(-2px)';"
         >
           {cta.button.label}
           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -46,6 +66,7 @@ import { cta } from '../data/content';
           </svg>
         </a>
       </div>
+
     </div>
   </div>
 </section>
