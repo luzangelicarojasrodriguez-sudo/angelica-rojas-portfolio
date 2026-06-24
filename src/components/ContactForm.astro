@@ -165,7 +165,7 @@ import { contact, siteConfig } from '../data/content';
             </div>
             <div id="form-error" class="hidden p-4 rounded-xl" role="alert"
                  style="background: rgba(244,63,94,0.10); border: 1px solid rgba(244,63,94,0.20);">
-              <p class="text-sm font-accent font-medium text-rose-400">
+              <p id="form-error-msg" class="text-sm font-accent font-medium text-rose-400">
                 Por favor completa todos los campos requeridos correctamente.
               </p>
             </div>
@@ -187,44 +187,57 @@ import { contact, siteConfig } from '../data/content';
   }
 </style>
 
-<script is:inline>
-  (function () {
-    var form    = document.getElementById('contact-form');
-    var success = document.getElementById('form-success');
-    var error   = document.getElementById('form-error');
-    var submit  = document.getElementById('contact-submit');
-    var label   = document.getElementById('submit-label');
+<script>
+  import { supabase } from '../lib/supabase';
 
-    if (!form) return;
+  const form    = document.getElementById('contact-form')    as HTMLFormElement | null;
+  const success = document.getElementById('form-success')    as HTMLElement | null;
+  const errorEl = document.getElementById('form-error')      as HTMLElement | null;
+  const errorMsg = document.getElementById('form-error-msg') as HTMLElement | null;
+  const submit  = document.getElementById('contact-submit')  as HTMLButtonElement | null;
+  const label   = document.getElementById('submit-label')    as HTMLElement | null;
 
-    form.addEventListener('submit', function (e) {
+  if (form) {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      success.classList.add('hidden');
-      error.classList.add('hidden');
+      success?.classList.add('hidden');
+      errorEl?.classList.add('hidden');
 
-      var name    = form.querySelector('#contact-name').value.trim();
-      var email   = form.querySelector('#contact-email').value.trim();
-      var message = form.querySelector('#contact-message').value.trim();
+      const name    = (form.querySelector('#contact-name')    as HTMLInputElement).value.trim();
+      const email   = (form.querySelector('#contact-email')   as HTMLInputElement).value.trim();
+      const subject = (form.querySelector('#contact-subject') as HTMLInputElement).value.trim();
+      const message = (form.querySelector('#contact-message') as HTMLTextAreaElement).value.trim();
 
-      var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!name || !email || !message || !emailPattern.test(email)) {
-        error.classList.remove('hidden');
-        error.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        if (errorMsg) errorMsg.textContent = 'Por favor completa todos los campos requeridos correctamente.';
+        errorEl?.classList.remove('hidden');
+        errorEl?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         return;
       }
 
-      /* Show loading state */
-      submit.disabled = true;
-      label.textContent = 'Enviando…';
+      /* Loading state */
+      if (submit) submit.disabled = true;
+      if (label)  label.textContent = 'Enviando…';
 
-      /* Simulate send (replace with real backend) */
-      setTimeout(function () {
-        submit.disabled = false;
-        label.textContent = 'Enviar mensaje';
-        success.classList.remove('hidden');
-        success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      /* ── Guardar en Supabase ── */
+      const { error } = await supabase
+        .from('contacts')
+        .insert([{ name, email, subject, message }]);
+
+      if (submit) submit.disabled = false;
+      if (label)  label.textContent = 'Enviar mensaje';
+
+      if (error) {
+        console.error('Supabase error:', error.message);
+        if (errorMsg) errorMsg.textContent = 'Hubo un problema al enviar. Por favor intenta de nuevo.';
+        errorEl?.classList.remove('hidden');
+        errorEl?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      } else {
+        success?.classList.remove('hidden');
+        success?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         form.reset();
-      }, 1200);
+      }
     });
-  })();
+  }
 </script>
